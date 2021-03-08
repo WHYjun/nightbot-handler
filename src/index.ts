@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import { sayHello } from "./handlers/helloworld";
-import { postTodos } from "./handlers/todos";
+import { getTodos, postTodos } from "./handlers/todos";
 
 // initialize configuration
 dotenv.config();
@@ -15,7 +15,7 @@ const app = express();
 
 app.get("/api/hello", (req, res) => sayHello(req, res));
 app.get("/api/todos", (req, res) => postTodos(req, res));
-// app.get("/api/todolists", (req, res) => getTodos(req, res));
+app.get("/api/todolists", (req, res) => getTodos(req, res));
 
 // start the express server
 app.listen(port, () => {
