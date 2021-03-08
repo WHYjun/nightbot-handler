@@ -11,6 +11,18 @@ export const postTodos = (req: Request, res: Response) => {
   }
 };
 
+export const postKoreanTodos = (req: Request, res: Response) => {
+  const user = parseNightbotUser(req.headers["nightbot-user"] as string);
+  const { todo } = req.query;
+  if (user) {
+    res
+      .status(200)
+      .send(`${user.displayName}가 ${todo}를/을 투두리스트에 추가`);
+  } else {
+    res.status(404);
+  }
+};
+
 export const getTodos = (req: Request, res: Response) => {
   const user = parseNightbotUser(req.headers["nightbot-user"] as string);
   if (user) {
