@@ -54,7 +54,7 @@ export const postKoreanTodos = async (req: Request, res: Response) => {
         if (todo) {
           res
             .status(200)
-            .send(`${user.displayName}님이 ${todo} 투두리스트에 추가`);
+            .send(`${user.displayName}님이 ${todo.todo} 투두리스트에 추가`);
         }
       } else {
         res
@@ -81,7 +81,7 @@ export const getTodos = async (req: Request, res: Response) => {
     let index = 0;
     todoList.map((todo) => {
       index++;
-      message = message + ` ${index}. ${todo}`;
+      message = message + ` ${index}. ${todo.todo}`;
     });
 
     if (user) {
