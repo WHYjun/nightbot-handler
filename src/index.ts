@@ -1,5 +1,6 @@
 import dotenv from "dotenv";
 import express from "express";
+import { parseNightbotChannel, parseNightbotUser } from "./common/parser";
 
 // initialize configuration
 dotenv.config();
@@ -11,9 +12,14 @@ const port = process.env.PORT || 3000;
 // define a route handler for the default home page
 const app = express();
 
-app.get("/", (req, res) => {
-  // render the index template
-  res.status(200).send("index");
+app.get("/api/hello", (req, res) => {
+  const channel = parseNightbotChannel(
+    req.headers["nightbot-channel"] as string
+  );
+  const user = parseNightbotUser(req.headers["nightbot-user"] as string);
+  const message = `Hello! Your username is ${user.displayName} and the current channel is ${channel.displayName}.`;
+
+  res.status(200).send(message);
 });
 
 // start the express server
