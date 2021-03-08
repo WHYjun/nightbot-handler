@@ -1,4 +1,4 @@
-import { parseNightbotChannel, parseNightbotUser } from "../common/parser";
+import { parseNightbotChannel, parseNightbotUser } from "./parser";
 import { Request, Response } from "express";
 
 export const sayHello = (req: Request, res: Response) => {

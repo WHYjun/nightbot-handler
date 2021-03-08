@@ -1,14 +1,21 @@
 import dotenv from "dotenv";
 import express from "express";
+import sequelize from "./handlers/sequelize";
 import { sayHello } from "./handlers/helloworld";
-import { getTodos, postTodos, postKoreanTodos } from "./handlers/todos";
+import {
+  getTodos,
+  postTodos,
+  postKoreanTodos,
+  removeOrCompleteKoreanTodos,
+} from "./handlers/services/todos";
 
 // initialize configuration
 dotenv.config();
 
-// port is now available to the Node.js runtime
-// as if it were an environment variable
-const port = process.env.PORT || 3000;
+// sequelize
+async () => {
+  await sequelize.sync({ force: true });
+};
 
 // define a route handler for the default home page
 const app = express();
@@ -17,8 +24,15 @@ app.get("/api/hello", (req, res) => sayHello(req, res));
 app.get("/api/todos", (req, res) => postTodos(req, res));
 app.get("/api/koreanToDos", (req, res) => postKoreanTodos(req, res));
 app.get("/api/todolists", (req, res) => getTodos(req, res));
+app.get("/api/koreanCompleteTodos", (req, res) =>
+  removeOrCompleteKoreanTodos(req, res, "완료")
+);
+app.get("/api/koreanRemoveTodos", (req, res) =>
+  removeOrCompleteKoreanTodos(req, res, "제거")
+);
 
 // start the express server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   // tslint:disable-next-line:no-console
   console.log(`server started at http://localhost:${port}`);
