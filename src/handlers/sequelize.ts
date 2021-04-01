@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { Todos } from "./models/todos";
+import { Dones } from "./models/dones";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -21,6 +22,6 @@ const sequelize = new Sequelize(DB, USER, PASSWORD, {
   ssl: true,
 });
 
-sequelize.addModels([Todos]);
+sequelize.addModels([Todos, Dones]);
 
 export default sequelize;
