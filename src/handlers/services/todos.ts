@@ -1,6 +1,7 @@
 import { parseNightbotUser } from "../parser";
 import { Request, Response } from "express";
 import { Todos } from "../models/todos";
+import { Dones } from "../models/dones";
 
 export const postTodos = async (req: Request, res: Response) => {
   try {
@@ -117,6 +118,7 @@ export const removeOrCompleteKoreanTodos = async (
       res.status(200).send(`${verb}할 할 일이 없습니다.`);
     } else {
       const todo = todoList[indexNumber - 1];
+      await Dones.create(todo as Dones).catch((err) => console.log(err));
       await Todos.destroy({
         where: {
           todoId: todo.todoId,

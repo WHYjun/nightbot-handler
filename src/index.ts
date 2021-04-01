@@ -8,6 +8,7 @@ import {
   postKoreanTodos,
   removeOrCompleteKoreanTodos,
 } from "./handlers/services/todos";
+import { getDone } from "./handlers/services/dones";
 
 // initialize configuration
 dotenv.config();
@@ -21,15 +22,16 @@ async () => {
 const app = express();
 
 app.get("/api/hello", (req, res) => sayHello(req, res));
-app.get("/api/todos", (req, res) => postTodos(req, res));
-app.get("/api/koreanToDos", (req, res) => postKoreanTodos(req, res));
+app.post("/api/todos", (req, res) => postTodos(req, res));
+app.post("/api/koreanToDos", (req, res) => postKoreanTodos(req, res));
 app.get("/api/todolists", (req, res) => getTodos(req, res));
-app.get("/api/koreanCompleteTodos", (req, res) =>
+app.post("/api/koreanCompleteTodos", (req, res) =>
   removeOrCompleteKoreanTodos(req, res, "완료")
 );
-app.get("/api/koreanRemoveTodos", (req, res) =>
+app.post("/api/koreanRemoveTodos", (req, res) =>
   removeOrCompleteKoreanTodos(req, res, "제거")
 );
+app.get("/api/done", (req, res) => getDone(req, res));
 
 // start the express server
 const port = process.env.PORT || 3000;
