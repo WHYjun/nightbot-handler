@@ -118,8 +118,11 @@ export const removeOrCompleteKoreanTodos = async (
       res.status(200).send(`${verb}할 할 일이 없습니다.`);
     } else {
       const todo = todoList[indexNumber - 1];
-      const done = convertTodoToDone(todo);
-      await Dones.create(done).catch((err) => console.log(err));
+      const doneModel = {
+        user: todo.user,
+        todo: todo.todo,
+      };
+      await Dones.create(doneModel as any).catch((err) => console.log(err));
       await Todos.destroy({
         where: {
           todoId: todo.todoId,
@@ -130,12 +133,4 @@ export const removeOrCompleteKoreanTodos = async (
         .send(`${user.displayName}님이 ${todo.todo} ${verb}했습니다.`);
     }
   }
-};
-
-const convertTodoToDone = (todo: Todos) => {
-  let done = new Dones();
-  done.todoId = todo.todoId;
-  done.user = todo.user;
-  done.todo = todo.todo;
-  return done;
 };
