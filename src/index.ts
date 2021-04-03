@@ -9,6 +9,7 @@ import {
   removeOrCompleteKoreanTodos,
 } from "./handlers/services/todos";
 import { getDone } from "./handlers/services/dones";
+import { sendReminds } from "./handlers/services/reminds";
 
 // initialize configuration
 dotenv.config();
@@ -33,6 +34,7 @@ app.get("/api/koreanRemoveTodos", (req, res) =>
   removeOrCompleteKoreanTodos(req, res, "제거")
 );
 app.get("/api/done", (req, res) => getDone(req, res));
+app.get("/api/reminds", (req, res) => sendReminds(req, res));
 
 // start the express server
 const port = process.env.PORT || 3000;
