@@ -21,14 +21,15 @@ async () => {
 // define a route handler for the default home page
 const app = express();
 
+// nightbot urlfetch can send HTTP GET request only :(
 app.get("/api/hello", (req, res) => sayHello(req, res));
-app.post("/api/todos", (req, res) => postTodos(req, res));
-app.post("/api/koreanToDos", (req, res) => postKoreanTodos(req, res));
+app.get("/api/todos", (req, res) => postTodos(req, res));
+app.get("/api/koreanToDos", (req, res) => postKoreanTodos(req, res));
 app.get("/api/todolists", (req, res) => getTodos(req, res));
-app.post("/api/koreanCompleteTodos", (req, res) =>
+app.get("/api/koreanCompleteTodos", (req, res) =>
   removeOrCompleteKoreanTodos(req, res, "완료")
 );
-app.post("/api/koreanRemoveTodos", (req, res) =>
+app.get("/api/koreanRemoveTodos", (req, res) =>
   removeOrCompleteKoreanTodos(req, res, "제거")
 );
 app.get("/api/done", (req, res) => getDone(req, res));
