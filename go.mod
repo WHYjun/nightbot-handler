@@ -1,3 +1,5 @@
-module nightbot-handler
+module github.com/WHYjun/nightbot-handler
 
 go 1.16
+
+require github.com/gorilla/mux v1.8.0 // indirect

@@ -29,6 +29,7 @@ benchmarks/graphs
 
 # compiled
 dist
+bin
 
 # IDE
 .idea
