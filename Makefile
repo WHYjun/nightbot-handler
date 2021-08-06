@@ -1,7 +1,8 @@
-PORT=5000
-
 build:
-	cd cmd && go build -o ../bin/nightbot-handler && cd ..
+	cd cmd && PORT=5000 go build -o ../bin/nightbot-handler && cd ..
+
+run:
+	PORT=5000 go run cmd/main.go
 
 clean:
 	rm -rf bin/
