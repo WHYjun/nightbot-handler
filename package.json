@@ -18,8 +18,9 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
-    "sequelize": "^6.5.0",
-    "sequelize-typescript": "^2.1.0"
+    "sequelize": "6.6.2",
+    "sequelize-typescript": "2.1.0",
+    "@nestjs/sequelize": "^0.2.0"
   },
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
