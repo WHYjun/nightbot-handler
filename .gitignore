@@ -29,3 +29,9 @@ benchmarks/graphs
 
 # compiled
 dist
+
+# IDE
+.idea/
+
+# Build
+bin/

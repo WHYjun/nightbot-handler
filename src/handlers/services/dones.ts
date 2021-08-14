@@ -7,7 +7,11 @@ export const getDone = async (req: Request, res: Response) => {
   const doneList = await Dones.findAll({
     where: {
       createdAt: {
-        [Op.gt]: today.getDate(),
+        [Op.gt]: new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - 7
+        ),
       },
     },
   });

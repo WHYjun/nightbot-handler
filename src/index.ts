@@ -33,7 +33,7 @@ app.get("/api/koreanCompleteTodos", (req, res) =>
 app.get("/api/koreanRemoveTodos", (req, res) =>
   removeOrCompleteKoreanTodos(req, res, "제거")
 );
-app.get("/api/done", (req, res) => getDone(req, res));
+app.get("/api/dones", (req, res) => getDone(req, res));
 app.get("/api/reminds", (req, res) => sendReminds(req, res));
 
 // start the express server
