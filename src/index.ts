@@ -1,3 +1,4 @@
+import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
 import sequelize from "./handlers/sequelize";
@@ -21,6 +22,13 @@ async () => {
 
 // define a route handler for the default home page
 const app = express();
+
+const allowedOrigins = [process.env.ALLOWED_ORIGINS];
+const options: cors.CorsOptions = {
+  origin: allowedOrigins,
+};
+app.use(cors(options));
+app.use(express.json());
 
 // nightbot urlfetch can send HTTP GET request only :(
 app.get("/api/hello", (req, res) => sayHello(req, res));
