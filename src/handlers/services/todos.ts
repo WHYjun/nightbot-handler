@@ -55,16 +55,12 @@ export const postKoreanTodos = async (req: Request, res: Response) => {
         if (todo) {
           res
             .status(200)
-            .send(
-              `${user.displayName}?‹˜?´ ${todo.todo} ?ˆ¬?‘ë¦¬ìŠ¤?Š¸?— ì¶”ê??`
-            );
+            .send(`${user.displayName}´ÔÀÌ ${todo.todo} ÅõµÎ¸®½ºÆ®¿¡ Ãß°¡`);
         }
       } else {
         res
           .status(200)
-          .send(
-            `?•  ?¼ ?•œ?„ ì´ˆê³¼! ?˜ˆ? „?— ?„£??? ?•  ?¼?„ ? œê±? ?˜¹??? ?™„ë£Œí•´ì£¼ì„¸?š”`
-          );
+          .send(`ÇÒ ÀÏ ÇÑµµ ÃÊ°ú! ¿¹Àü¿¡ ³ÖÀº ÇÒ ÀÏÀ» Á¦°Å È¤Àº ¿Ï·áÇØÁÖ¼¼¿ä`);
       }
     }
   } catch (e) {
@@ -107,15 +103,11 @@ export const removeOrCompleteKoreanTodos = async (
     const index = req.query.index as string;
     const indexNumber = parseInt(index);
     if (!indexNumber) {
-      res
-        .status(200)
-        .send(`${verb}?•  ?•  ?¼?˜ ?ˆ«?ë¥? ?…? ¥?•´ì£¼ì„¸?š”.`);
+      res.status(200).send(`${verb}ÇÒ ÇÒ ÀÏÀÇ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.`);
     } else if (indexNumber > 5 || indexNumber < 0) {
-      res
-        .status(200)
-        .send("0ë³´ë‹¤ ?¬ê³? 6ë³´ë‹¤ ?‘??? ? •?ˆ˜ë¥? ?…? ¥?•´ì£¼ì„¸?š”.");
+      res.status(200).send("0º¸´Ù Å©°í 6º¸´Ù ÀÛÀº Á¤¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
     } else if (!Number.isInteger(indexNumber)) {
-      res.status(200).send("? •?ˆ˜ë¥? ?…? ¥?•´ì£¼ì„¸?š”.");
+      res.status(200).send("Á¤¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
     }
 
     const todoList = await Todos.findAll({
@@ -123,7 +115,7 @@ export const removeOrCompleteKoreanTodos = async (
     });
 
     if (todoList.length == 0) {
-      res.status(200).send(`${verb}?•  ?•  ?¼?´ ?—†?Šµ?‹ˆ?‹¤.`);
+      res.status(200).send(`${verb}ÇÒ ÇÒ ÀÏÀÌ ¾ø½À´Ï´Ù.`);
     } else {
       const todo = todoList[indexNumber - 1];
       const doneModel = {
@@ -138,7 +130,7 @@ export const removeOrCompleteKoreanTodos = async (
       });
       res
         .status(200)
-        .send(`${user.displayName}?‹˜?´ ${todo.todo} ${verb}?–ˆ?Šµ?‹ˆ?‹¤.`);
+        .send(`${user.displayName}´ÔÀÌ ${todo.todo} ${verb}Çß½À´Ï´Ù.`);
     }
   }
 };
