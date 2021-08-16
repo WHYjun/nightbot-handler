@@ -55,12 +55,16 @@ export const postKoreanTodos = async (req: Request, res: Response) => {
         if (todo) {
           res
             .status(200)
-            .send(`${user.displayName}ë‹˜ì´ ${todo.todo} íˆ¬ë‘ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€`);
+            .send(
+              `${user.displayName}?‹˜?´ ${todo.todo} ?ˆ¬?‘ë¦¬ìŠ¤?Š¸?— ì¶”ê??`
+            );
         }
       } else {
         res
           .status(200)
-          .send(`í•  ì¼ í•œë„ ì´ˆê³¼! ì˜ˆì „ì— ë„£ì€ í•  ì¼ì„ ì œê±° í˜¹ì€ ì™„ë£Œí•´ì£¼ì„¸ìš”`);
+          .send(
+            `?•  ?¼ ?•œ?„ ì´ˆê³¼! ?˜ˆ? „?— ?„£??? ?•  ?¼?„ ? œê±? ?˜¹??? ?™„ë£Œí•´ì£¼ì„¸?š”`
+          );
       }
     }
   } catch (e) {
@@ -103,11 +107,15 @@ export const removeOrCompleteKoreanTodos = async (
     const index = req.query.index as string;
     const indexNumber = parseInt(index);
     if (!indexNumber) {
-      res.status(200).send(`${verb}í•  í•  ì¼ì˜ ìˆ«ìžë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”.`);
+      res
+        .status(200)
+        .send(`${verb}?•  ?•  ?¼?˜ ?ˆ«?žë¥? ?ž…? ¥?•´ì£¼ì„¸?š”.`);
     } else if (indexNumber > 5 || indexNumber < 0) {
-      res.status(200).send("0ë³´ë‹¤ í¬ê³  6ë³´ë‹¤ ìž‘ì€ ì •ìˆ˜ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”.");
+      res
+        .status(200)
+        .send("0ë³´ë‹¤ ?¬ê³? 6ë³´ë‹¤ ?ž‘??? ? •?ˆ˜ë¥? ?ž…? ¥?•´ì£¼ì„¸?š”.");
     } else if (!Number.isInteger(indexNumber)) {
-      res.status(200).send("ì •ìˆ˜ë¥¼ ìž…ë ¥í•´ì£¼ì„¸ìš”.");
+      res.status(200).send("? •?ˆ˜ë¥? ?ž…? ¥?•´ì£¼ì„¸?š”.");
     }
 
     const todoList = await Todos.findAll({
@@ -115,7 +123,7 @@ export const removeOrCompleteKoreanTodos = async (
     });
 
     if (todoList.length == 0) {
-      res.status(200).send(`${verb}í•  í•  ì¼ì´ ì—†ìŠµë‹ˆë‹¤.`);
+      res.status(200).send(`${verb}?•  ?•  ?¼?´ ?—†?Šµ?‹ˆ?‹¤.`);
     } else {
       const todo = todoList[indexNumber - 1];
       const doneModel = {
@@ -130,7 +138,49 @@ export const removeOrCompleteKoreanTodos = async (
       });
       res
         .status(200)
-        .send(`${user.displayName}ë‹˜ì´ ${todo.todo} ${verb}í–ˆìŠµë‹ˆë‹¤.`);
+        .send(`${user.displayName}?‹˜?´ ${todo.todo} ${verb}?–ˆ?Šµ?‹ˆ?‹¤.`);
+    }
+  }
+};
+
+export const completeTodos = async (req: Request, res: Response) => {
+  const user = parseNightbotUser(req.headers["nightbot-user"] as string);
+  if (user) {
+    const index = req.query.index as string;
+    const indexNumber = parseInt(index);
+    if (!indexNumber) {
+      res.status(200).send(`Please insert number with the command.`);
+    } else if (indexNumber > 5 || indexNumber < 0) {
+      res
+        .status(200)
+        .send("Please insert integer number bigger than 0 and smaller than 6.");
+    } else if (!Number.isInteger(indexNumber)) {
+      res
+        .status(200)
+        .send("Please insert integer number bigger than 0 and smaller than 6.");
+    }
+
+    const todoList = await Todos.findAll({
+      where: { user: user.displayName },
+    });
+
+    if (todoList.length == 0) {
+      res.status(200).send(`You don't have any items to complete.`);
+    } else {
+      const todo = todoList[indexNumber - 1];
+      const doneModel = {
+        user: todo.user,
+        todo: todo.todo,
+      };
+      await Dones.create(doneModel as any).catch((err) => console.log(err));
+      await Todos.destroy({
+        where: {
+          todoId: todo.todoId,
+        },
+      });
+      res
+        .status(200)
+        .send(`Great job! ${user.displayName} completed ${todo.todo}.`);
     }
   }
 };
