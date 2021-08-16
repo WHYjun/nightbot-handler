@@ -55,12 +55,12 @@ export const postKoreanTodos = async (req: Request, res: Response) => {
         if (todo) {
           res
             .status(200)
-            .send(`${user.displayName}´ÔÀÌ ${todo.todo} ÅõµÎ¸®½ºÆ®¿¡ Ãß°¡`);
+            .send(`${user.displayName}ë‹˜ì´ ${todo.todo} íˆ¬ë‘ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€`);
         }
       } else {
         res
           .status(200)
-          .send(`ÇÒ ÀÏ ÇÑµµ ÃÊ°ú! ¿¹Àü¿¡ ³ÖÀº ÇÒ ÀÏÀ» Á¦°Å È¤Àº ¿Ï·áÇØÁÖ¼¼¿ä`);
+          .send(`í•  ì¼ í•œë„ ì´ˆê³¼! ì˜ˆì „ì— ë„£ì€ í•  ì¼ì„ ì œê±° í˜¹ì€ ì™„ë£Œí•´ì£¼ì„¸ìš”`);
       }
     }
   } catch (e) {
@@ -103,11 +103,11 @@ export const removeOrCompleteKoreanTodos = async (
     const index = req.query.index as string;
     const indexNumber = parseInt(index);
     if (!indexNumber) {
-      res.status(200).send(`${verb}ÇÒ ÇÒ ÀÏÀÇ ¼ıÀÚ¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.`);
+      res.status(200).send(`${verb}í•  í•  ì¼ì˜ ìˆ«ìë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.`);
     } else if (indexNumber > 5 || indexNumber < 0) {
-      res.status(200).send("0º¸´Ù Å©°í 6º¸´Ù ÀÛÀº Á¤¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+      res.status(200).send("0ë³´ë‹¤ í¬ê³  6ë³´ë‹¤ ì‘ì€ ì •ìˆ˜ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
     } else if (!Number.isInteger(indexNumber)) {
-      res.status(200).send("Á¤¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+      res.status(200).send("ì •ìˆ˜ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
     }
 
     const todoList = await Todos.findAll({
@@ -115,7 +115,7 @@ export const removeOrCompleteKoreanTodos = async (
     });
 
     if (todoList.length == 0) {
-      res.status(200).send(`${verb}ÇÒ ÇÒ ÀÏÀÌ ¾ø½À´Ï´Ù.`);
+      res.status(200).send(`${verb}í•  í•  ì¼ì´ ì—†ìŠµë‹ˆë‹¤.`);
     } else {
       const todo = todoList[indexNumber - 1];
       const doneModel = {
@@ -130,7 +130,7 @@ export const removeOrCompleteKoreanTodos = async (
       });
       res
         .status(200)
-        .send(`${user.displayName}´ÔÀÌ ${todo.todo} ${verb}Çß½À´Ï´Ù.`);
+        .send(`${user.displayName}ë‹˜ì´ ${todo.todo} ${verb}í–ˆìŠµë‹ˆë‹¤.`);
     }
   }
 };
