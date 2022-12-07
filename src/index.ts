@@ -1,5 +1,4 @@
 import cors from "cors";
-import dotenv from "dotenv";
 import express from "express";
 import sequelize from "./handlers/sequelize";
 import { sayHello } from "./handlers/helloworld";
@@ -15,7 +14,7 @@ import { sendReminds } from "./handlers/services/reminds";
 import { sendNudges } from "./handlers/services/nudges";
 
 // initialize configuration
-dotenv.config();
+// dotenv.config();
 
 // sequelize
 async () => {
